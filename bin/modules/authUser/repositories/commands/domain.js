@@ -23,7 +23,7 @@ class AuthUser {
 
   async injectRoot(payload) {
     const existingAdmin = await this.query.findOneAdmin({
-      'email': payload.email
+      'username': payload.username
     });
     if (existingAdmin.err) {
       logger.error(this.ctx, 'failed to check data existence', 'createTeacher::command.findOneTeacher', existingAdmin.err);
@@ -53,7 +53,7 @@ class AuthUser {
 
   async login (payload) {
     const queryUser = {
-      email: payload.email,
+      'username': payload.username
     };
 
     let result;

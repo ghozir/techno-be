@@ -19,7 +19,7 @@ const messages = {
 };
 
 const login = Joi.object({
-  email: Joi.string().trim().required().min(6).messages({
+  username: Joi.string().required().min(6).messages({
     'any.required': messages.any.required,
     'string.base': messages.string.base,
   }),
@@ -30,11 +30,10 @@ const login = Joi.object({
   remember: Joi.boolean().default(false).messages({
     'boolean.base': messages.boolean.base,
   }),
-  role: Joi.boolean().default('student').allow('student','admin','root'),
 });
 
 const injectAdmin = Joi.object({
-  email: Joi.string().trim().required().min(6).messages({
+  username: Joi.string().required().min(6).messages({
     'any.required': messages.any.required,
     'string.base': messages.string.base,
   }),
