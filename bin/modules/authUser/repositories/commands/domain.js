@@ -64,7 +64,7 @@ class AuthUser {
       return wrapper.error(result.err);
     }
 
-    if (_.isEmpty(result.data)) return wrapper.error(new NotFoundError('Email salah !'));
+    if (_.isEmpty(result.data)) return wrapper.error(new NotFoundError('Usernames salah !'));
 
     const checkPassword = await common.verifyHash(result.data.password, payload.password);
     if (checkPassword.err) {

@@ -29,61 +29,8 @@ class Query {
     return ttl;
   }
   async findOneAdmin(parameter) {
-    this.db.setCollection('user');
+    this.db.setCollection('users');
     const recordset = await this.db.findOne(parameter);
-    return recordset;
-  }
-
-  async findManyTeacher(parameter, sortByfield) {
-    if (parameter.search) {
-      parameter.$or = [];
-      parameter.$or[0] = { name: { $regex: new RegExp(parameter.search, 'i') } };
-      delete parameter.search;
-    }
-    this.dbTeacher.setCollection('teachers');
-    const recordset = await this.dbTeacher.findMany(parameter, sortByfield);
-    return recordset;
-  }
-
-  async findManyCourse(parameter) {
-    this.db.setCollection('course');
-    const recordset = await this.db.findMany(parameter);
-    return recordset;
-  }
-
-  async findPaginatedTeacher(meta, params, sortByfield = 'name') {
-
-    if (params.search) {
-      params.$or = [];
-      params.$or[0] = { name: { $regex: new RegExp(params.search, 'i') } };
-      delete params.search;
-    }
-
-    this.dbTeacher.setCollection('teachers');
-    const recordset = await this.dbTeacher.findPaginated(sortByfield, meta.size, meta.page, params);
-    return recordset;
-  }
-
-  async findOtp(parameter) {
-    this.dbTeacher.setCollection('teacherOtp');
-    return await this.dbTeacher.findMany(parameter, 'timeStamps', false);
-  }
-
-  async findStudentAggregate(params = {}){
-    this.dbStudent.setCollection('student');
-    const recordset = await this.dbStudent.aggregate(params);
-    return recordset;
-  }
-
-  async findOneStudent(parameter) {
-    this.dbTeacher.setCollection('student');
-    const recordset = await this.dbTeacher.findOne(parameter);
-    return recordset;
-  }
-
-  async findOtpNumber(parameter){
-    this.otpdb.setCollection('verified_numbers');
-    const recordset = await this.otpdb.findOne(parameter);
     return recordset;
   }
 
