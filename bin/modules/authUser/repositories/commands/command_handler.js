@@ -33,6 +33,13 @@ const forgetPass = async (payload) => {
   return await postCommand();
 };
 
+const insertDegree = async (payload) => {
+  const db = new Mongo(`${config.get('/mongoDbAuthUrl')}?authSource=admin`, 'techo');
+  const auth = new AuthUser(redis, db);
+  const postCommand = async () => await auth.insertDegree(payload);
+  return await postCommand();
+};
+
 // const changePass = async (payload) => {
 //   const db = new Mongo(config.get('/mongoDbUrl'));
 //   const teacher = new Teacher(http, redis, config, db);
@@ -43,7 +50,8 @@ module.exports = {
   InjectAdmin,
   login,
   logout,
-  forgetPass
+  forgetPass,
+  insertDegree
 //   changePass,
   // check
 };

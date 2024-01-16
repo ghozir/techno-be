@@ -32,6 +32,11 @@ const login = Joi.object({
   }),
 });
 
+const insertData = Joi.object({
+  temp: Joi.number().required(),
+  status: Joi.number().required().valid(1,2,3)
+});
+
 const injectAdmin = Joi.object({
   username: Joi.string().required().min(6).messages({
     'any.required': messages.any.required,
@@ -65,5 +70,6 @@ module.exports = {
   login,
   forgetPass,
   changePass,
-  injectAdmin
+  injectAdmin,
+  insertData
 };

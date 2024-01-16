@@ -36,8 +36,8 @@ class Command {
     return res;
   }
 
-  async insertOneAdmin(document) {
-    this.db.setCollection('users');
+  async insertDegree(document) {
+    this.db.setCollection('degreeHistory');
     const result = await this.db.insertOne(document);
     return result;
   }

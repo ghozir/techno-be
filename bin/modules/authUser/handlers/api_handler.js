@@ -43,6 +43,24 @@ const login = async (req, res) => {
   sendResponse(await postRequest(validatePayload));
 };
 
+const insertDegree = async (req, res) => {
+  const payload = req.body;
+  const validatePayload = validator.isValidPayload(payload, commandModel.insertData);
+
+  const postRequest = (result) =>
+    (result.err)
+      ? result
+      : commandHandler.insertDegree(result.data);
+
+  const sendResponse = (result) => {
+    (result.err)
+      ? wrapper.response(res, 'fail', result, 'Failed to log student in')
+      : wrapper.response(res, 'success', result, 'Successfully log student in');
+  };
+
+  sendResponse(await postRequest(validatePayload));
+};
+
 const logout = async (req, res) => {
 
   const postRequest = () => commandHandler.logout(req.userId);
@@ -119,5 +137,6 @@ module.exports = {
   logout,
   getInfo,
   injectAdmin,
-  forgetPass
+  forgetPass,
+  insertDegree
 };

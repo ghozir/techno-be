@@ -197,6 +197,19 @@ class AuthUser {
     }
     return wrapper.data(null);
   }
+
+  async insertDegree (payload) {
+    const degreeadd = await this.command.insertDegree({
+      temp:payload.temp,
+      status:1,
+      createdAt:new Date()
+    });
+    if (degreeadd.err) {
+      logger.error(this.ctx, 'Failed to unset teacher cache', 'logout::command.unsetCache', degreeadd.err);
+      return wrapper.error(degreeadd.err);
+    }
+    return wrapper.data(null);
+  }
 }
 
 module.exports = AuthUser;
