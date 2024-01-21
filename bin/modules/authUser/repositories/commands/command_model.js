@@ -33,8 +33,7 @@ const login = Joi.object({
 });
 
 const insertData = Joi.object({
-  temp: Joi.number().required(),
-  status: Joi.number().required().valid(1,2,3)
+  temp: Joi.number().required()
 });
 
 const injectAdmin = Joi.object({

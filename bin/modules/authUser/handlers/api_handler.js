@@ -132,11 +132,30 @@ const changePassword = async (req, res) => {
   sendResponse(await postRequest(validatePayload));
 };
 
+const getData = async (req, res) => {
+  const payload = {...req.query};
+  const validatePayload = validator.isValidPayload(payload, queryModel.getData);
+
+  const postRequest = (result) =>
+    (result.err)
+      ? result
+      : queryHandler.getData(result.data);
+
+  const sendResponse = (result) => {
+    (result.err)
+      ? wrapper.paginationResponse(res, 'fail', result, 'Failed to inject Admin')
+      : wrapper.paginationResponse(res, 'success', result, 'Successfully to inject admin');
+  };
+
+  sendResponse(await postRequest(validatePayload));
+};
+
 module.exports = {
   login,
   logout,
   getInfo,
   injectAdmin,
   forgetPass,
-  insertDegree
+  insertDegree,
+  getData
 };

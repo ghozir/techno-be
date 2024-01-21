@@ -8,6 +8,7 @@ const init = (router, jwtAuth, basicAuth) => {
   router.get('/user/status', jwtAuth.verifyToken, handler.getInfo);
   router.post('/user/forget-password',  basicAuth.isAuthenticated, handler.forgetPass);
   router.post('/user/insert-data', handler.insertDegree);
+  router.get('/user/get-data', handler.getData);
 };
 
 module.exports = {
