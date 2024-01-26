@@ -20,7 +20,7 @@ class Query {
 
   async findData(parameter) {
     this.db.setCollection('degreeHistory');
-    const recordset = await this.db.findMany(parameter, {screatedAt:-1});
+    const recordset = await this.db.findMany(parameter, {createdAt:-1});
     return recordset;
   }
 
