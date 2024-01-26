@@ -143,7 +143,7 @@ const getData = async (req, res) => {
 
   const sendResponse = (result) => {
     (result.err)
-      ? wrapper.paginationResponse(res, 'fail', result, 'Failed to inject Admin')
+      ? wrapper.response(res, 'fail', result, 'Failed to inject Admin')
       : wrapper.paginationResponse(res, 'success', result, 'Successfully to inject admin');
   };
 

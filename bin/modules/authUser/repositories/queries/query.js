@@ -24,8 +24,6 @@ class Query {
     return recordset;
   }
 
-
-
   async getCached(key) {
     const cachedData = this.redis.get(key);
     return cachedData;

@@ -3,30 +3,33 @@ const Query = require('./query');
 const wrapper = require('../../../../helpers/utils/wrapper');
 const logger = require('../../../../helpers/utils/logger');
 const config = require('../../../../infra/configs/global_config');
+const { UnprocessableEntityError } = require('../../../../helpers/error');
 // const common = require('../../../../helpers/utils/common');
 // const { UnprocessableEntityError, NotFoundError, UnauthorizedError, ConflictError,
 
 class Techno {
 
-  constructor (db) {
+  constructor (redis,db) {
     this.ctx = 'Student::command-domain';
-    this.query = new Query(db);
+    this.query = new Query(redis,db);
     this.config = config;
   }
 
   async getData(payload) {
+    payload.startDate = (payload.startDate) ? dateFns.startOfDay(payload.startDate) : dateFns.startOfDay(new Date);
+    payload.endDate = (payload.endDate) ? dateFns.startOfDay(payload.endDate) : dateFns.endOfDay(new Date);
 
-    if(!payload.startDate){
-      payload.startDate = new Date();
-      payload.endDate = new Date();
+    if (payload.startDate > payload.endDate) {
+      return wrapper.error(new UnprocessableEntityError('Start Date tidak boleh lebih besar dari End Date'));
     }
 
     const result = await this.query.findData({
       createdAt:{
-        $gte: dateFns.startOfDay(payload.startDate),
-        $lt: dateFns.endOfDay(payload.endDate),
+        $gte: payload.startDate,
+        $lt: payload.endDate,
       }
     });
+
 
     if (result.err || !result.data) {
       logger.error(this.ctx, 'Failed to get student credential', 'login::query.findOneAdmin', result.err);
