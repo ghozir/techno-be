@@ -201,13 +201,13 @@ class AuthUser {
   async insertDegree (payload) {
     let status;
     const temp = payload.temp;
-    if(temp >= 36 && temp <= 37.5){
-      status = 1;
+    if(temp >= 35.5 && temp <= 37.5){
+      status = 1; //normal
     }
-    else if (temp <= 35.9)
-      status = 2;
+    else if (temp <= 35.4)
+      status = 2; //rendah
     else
-      status = 3;
+      status = 3; //tinggi
 
     const degreeadd = await this.command.insertDegree({
       temp:payload.temp,
