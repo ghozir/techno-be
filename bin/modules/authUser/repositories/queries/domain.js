@@ -17,7 +17,7 @@ class Techno {
 
   async getData(payload) {
     payload.startDate = (payload.startDate) ? dateFns.startOfDay(payload.startDate) : dateFns.startOfDay(new Date);
-    payload.endDate = (payload.endDate) ? dateFns.startOfDay(payload.endDate) : dateFns.endOfDay(new Date);
+    payload.endDate = (payload.endDate) ? dateFns.endOfDay(payload.endDate) : dateFns.endOfDay(new Date);
 
     if (payload.startDate > payload.endDate) {
       return wrapper.error(new UnprocessableEntityError('Start Date tidak boleh lebih besar dari End Date'));
