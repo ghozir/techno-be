@@ -37,7 +37,7 @@ class Techno {
     }
 
     const doc = result.data.map((val,idx)=>{
-      const nameUser = 'Pengunjung ke - '+ (idx+1);
+      const nameUser = 'Pengunjung ke - '+ (result.data.length - idx);
       let ketSuhu;
       if(val.status === 1) {
         ketSuhu = 'Suhu Normal';
